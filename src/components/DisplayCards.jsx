@@ -1,14 +1,17 @@
 import React from "react";
 
-function DisplayCards({ questions }) {
-  const toggleDisplay = (targetElement) => {
-    targetElement.classList.contains("hidden")
-      ? targetElement.classList.remove("hidden")
-      : targetElement.classList.add("hidden");
-  };
-
-  const handleAnswer = (e) => {
-    Array.from(e.target.children).forEach((element) => toggleDisplay(element));
+function DisplayCards({ questions, setQuestions }) {
+  const handleAnswer = (id) => {
+    setQuestions(
+      questions.map((question) => {
+        return {
+          id: question.id,
+          question: question.question,
+          answer: question.answer,
+          showAnswer: id === question.id ? true : false,
+        };
+      })
+    );
   };
 
   return (
@@ -17,10 +20,13 @@ function DisplayCards({ questions }) {
         <p
           key={question.id}
           className="border-double border-4 border-black rounded-md p-6 pt-12 pb-12 hover:bg-gray-700 hover:text-white cursor-pointer"
-          onClick={handleAnswer}
+          onClick={() => handleAnswer(question.id)}
         >
-          <span>Question: {question.question}</span>
-          <span className="hidden">Answer: {question.answer}</span>
+          {!question.showAnswer ? (
+            <span>Question: {question.question}</span>
+          ) : (
+            <span>Answer: {question.answer}</span>
+          )}
         </p>
       ))}
     </div>
