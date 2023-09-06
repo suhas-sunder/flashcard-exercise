@@ -2,7 +2,7 @@ import "./styles.css";
 import DisplayCards from "./components/DisplayCards";
 import { useState } from "react";
 
-const questionsObj = [
+const questions = [
   {
     id: 3457,
     question: "What language is React based on?",
@@ -43,12 +43,12 @@ const questionsObj = [
 ];
 
 export default function App() {
-  const [questions, setQuestions] = useState(questionsObj);
+  const [questionId, setQuestionId] = useState(null);
 
   return (
     <div className="flex flex-col items-center gap-16  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl">
       <h1 className="font-bold text-6xl uppercase">Flashcard App</h1>
-      <DisplayCards questions={questions} setQuestions={setQuestions} />
+      <DisplayCards questions={questions} questionId={questionId} setQuestionId={setQuestionId} />
     </div>
   );
 }
